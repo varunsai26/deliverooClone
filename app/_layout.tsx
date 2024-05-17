@@ -27,6 +27,7 @@ export default function RootLayoutNav() {
             headerStyle: {
               backgroundColor: Colors.lightGrey,
             },
+            
             headerLeft: () => (
               <TouchableOpacity onPress={()=> navigation.goBack()}>
                 <Ionicons
