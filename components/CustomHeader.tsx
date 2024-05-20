@@ -1,10 +1,18 @@
 import Colors from "@/constants/Colors";
 import { Ionicons } from "@expo/vector-icons";
 import { Link } from "expo-router";
-import React, { useRef } from "react";
-import { Image, SafeAreaView, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
+import React, { useEffect, useRef } from "react";
+import {
+  Image,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import BottomSheet from "./BottomSheet";
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const SearchBar = () => (
   <View style={styles.searchContainer}>
@@ -29,16 +37,30 @@ const SearchBar = () => (
     </View>
   </View>
 );
+interface CustomHeaderProps {
+  onLayout: (height: number) => void;
+}
 
-const CustomHeader = () => {
+const CustomHeader = (props: CustomHeaderProps) => {
   const bottomSheetRef = useRef<BottomSheetModal>(null);
-  const openModal =()=>{
+  const headerRef = useRef<SafeAreaView>(null);
+  const openModal = () => {
     console.log("open modal");
     bottomSheetRef.current?.present();
-  }
+  };
+  useEffect(() => {
+    
+    if (headerRef.current) {
+      headerRef.current.measure((x, y, width, height) => {
+        console.log("header customi", height);
+        props.onLayout(height);
+      });
+    }
+  }, []);
+
   return (
-    <SafeAreaView style={styles.safeArea}>
-      <BottomSheet ref={bottomSheetRef}/>
+    <SafeAreaView ref={headerRef} style={styles.safeArea}>
+      <BottomSheet ref={bottomSheetRef} />
       <View style={styles.container}>
         <TouchableOpacity onPress={openModal}>
           <Image
@@ -103,14 +125,14 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   searchContainer: {
-    height: 60,
+    height: 50,
     backgroundColor: "#fff",
   },
   searchSection: {
     flexDirection: "row",
     gap: 10,
     flex: 1,
-    paddingHorizontal: 20,
+    paddingHorizontal: 15,
     alignItems: "center",
   },
   searchField: {
@@ -129,7 +151,7 @@ const styles = StyleSheet.create({
     color: Colors.mediumDark,
   },
   searchIcon: {
-    paddingLeft:10
+    paddingLeft: 10,
   },
 });
 

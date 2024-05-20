@@ -4,6 +4,7 @@ import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
 import Colors from "@/constants/Colors";
 import { TouchableOpacity } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import { useState } from "react";
 
 export const unstable_settings = {
   initialRouteName: "index",
@@ -11,12 +12,14 @@ export const unstable_settings = {
 
 export default function RootLayoutNav() {
   const navigation = useNavigation();
+  const [headerHeight, setHeaderHeight] = useState(0);
   return (
     <BottomSheetModalProvider>
       <Stack>
         <Stack.Screen
           name="index"
-          options={{ header: () => <CustomHeader /> }}
+          initialParams={{headerHeight}}
+          options={{ header: () => <CustomHeader onLayout={setHeaderHeight} /> }}
         />
         <Stack.Screen
           name="(modal)/filter"
