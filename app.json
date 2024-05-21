@@ -19,6 +19,9 @@
       "supportsTablet": true
     },
     "android": {
+      "package": "com.yourcompany.deliverooClone",
+      "versionCode": 1,
+      "permissions": [],
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
@@ -34,7 +37,15 @@
     ],
     "experiments": {
       "typedRoutes": true,
-      "tsconfigPaths":true
+      "tsconfigPaths": true
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "b6fe036a-b864-4ca9-9136-f936109a456d"
+      }
     }
   }
 }
