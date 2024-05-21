@@ -45,7 +45,6 @@ const CustomHeader = (props: CustomHeaderProps) => {
   const bottomSheetRef = useRef<BottomSheetModal>(null);
   const headerRef = useRef<SafeAreaView>(null);
   const openModal = () => {
-    console.log("open modal");
     bottomSheetRef.current?.present();
   };
   useEffect(() => {
